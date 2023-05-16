@@ -1,24 +1,55 @@
-﻿ // OOPLab4T.cpp : Цей файл містить є шаблоном для 
-// виконання лаб. роботи №4. 
-// Він містинь функцію "main" з якої починається та закінчується виконання програми.
-//
+﻿class VectorUShort {
+private:
+    unsigned short* data;
+    int num;     
+    int State;     
+    
+public:
+    VectorUShort() {
+        data = nullptr;    
+        num = 0;         
+        State = 0;        
+    }
+    
+    // Конструктор с параметрами
+    VectorUShort(int n, unsigned short val) {
+        data = new unsigned short[n];   
+        num = n;                       
+        State = 0;            
+        for (int i = 0; i < n; i++) {
+            data[i] = val; 
+        }
+    }
+    
+    // Деструктор
+    ~VectorUShort() {
+        delete[] data;
+    }
+    
 
+    int size() const {
+        return num;
+    }
+    
 
-#include <iostream>
+    unsigned short& operator[](int index) {
+        return data[index];
+    }
+    
+    const unsigned short& operator[](int index) const {
+        return data[index];
+    }
+    
+    void setState(int s) {
+        State = s;
+    }
+    
+    int getState() const {
+        return State;
+    }
+};
 
-// Ваші файли загловки 
-//
-#include "Lab4Exmaple.h"
-int main()
-{
-    std::cout << " Lab #4  task chain  !\n";
-    //  Код виконання завдань
-    //  Головне меню завдань
-    //  Функції та класи можуть знаходитись в інших файлах проекту
-
-    int chain = 1;
-    if (chain == 1) chain = mainExample1();
-    if (chain == 2) chain = mainExample2();
-    if (chain == 3) chain = mainExample3();
-
+int main() {
+    
+    return 0;
 }
