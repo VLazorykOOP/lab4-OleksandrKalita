@@ -44,6 +44,33 @@ public:
     }
     
 
+    VectorUShort& operator++() {
+        for (int i = 0; i < num; i++) {
+            ++data[i];
+        }
+        return *this;
+    }
+    
+    VectorUShort operator++(int) {
+        VectorUShort temp(*this);
+        operator++();
+        return temp;
+    }
+
+    VectorUShort& operator--() {
+        for (int i = 0; i < num; i++) {
+            --data[i];
+        }
+        return *this;
+    }
+    
+    VectorUShort operator--(int) {
+        VectorUShort temp(*this);
+        operator--();
+        return temp;
+    }
+
+    
     int size() const {
         return num;
     }
