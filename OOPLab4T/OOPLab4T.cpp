@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -146,88 +147,154 @@ public:
     
 };
 
+
+
+
+class FlightSchedule {
+public:
+    FlightSchedule() {}
+
+    void addFlight(int flightNumber, std::string departureTime) {
+        flights[flightNumber] = departureTime;
+    }
+
+    std::string operator[](int flightNumber) const {
+        auto it = flights.find(flightNumber);
+        if (it != flights.end()) {
+            return it->second;
+        } else {
+            codeError = 1;
+            return "";
+        }
+    }
+
+    string operator()(int flightNumber) const {
+        return (*this)[flightNumber];
+    }
+
+    friend istream& operator>>(istream& in, FlightSchedule& schedule) {
+        int n;
+        in >> n;
+        for (int i = 0; i < n; i++) {
+            int flightNumber;
+            std::string departureTime;
+            in >> flightNumber >> departureTime;
+            schedule.addFlight(flightNumber, departureTime);
+        }
+        return in;
+    }
+
+    friend std::ostream& operator<<(std::ostream& out, const FlightSchedule& schedule) {
+        for (auto it = schedule.flights.begin(); it != schedule.flights.end(); ++it) {
+            cout << it->first << " " << it->second << endl;
+        }
+        return out;
+    }
+
+    int getErrorCode() const {
+        return codeError;
+    }
+};
+
 int main() {
-  // Створюємо вектор з розміром 5
-  VectorUShort v1(5);
+    // Створюємо вектор з розміром 5
+    VectorUShort v1(5);
 
-  cout << "v1: " << v1 << endl;
+    cout << "v1: " << v1 << endl;
 
-  // Ініціалізуємо вектор
-  v1[0] = 10;
-  v1[1] = 20;
-  v1[2] = 30;
-  v1[3] = 40;
-  v1[4] = 50;
+    // Ініціалізуємо вектор
+    v1[0] = 10;
+    v1[1] = 20;
+    v1[2] = 30;
+    v1[3] = 40;
+    v1[4] = 50;
 
-  cout << "v1: " << v1 << endl;
+    cout << "v1: " << v1 << endl;
 
-  // Копіюємо вектор
-  VectorUShort v2 = v1;
+    // Копіюємо вектор
+    VectorUShort v2 = v1;
 
-  cout << "v2: " << v2 << endl;
+    cout << "v2: " << v2 << endl;
 
-  // Перевіряємо, чи всі елементи не є нулем
-  if (!v1) {
-    cout << "v1 містить нульові елементи" << endl;
-  } else {
-    cout << "v1 не містить нульових елементів" << endl;
-  }
+    // Перевіряємо, чи всі елементи не є нулем
+    if (!v1) {
+        cout << "v1 містить нульові елементи" << endl;
+    } else {
+        cout << "v1 не містить нульових елементів" << endl;
+    }
 
-  // Виконуємо побітову операцію заперечення над вектором
-  VectorUShort v3 = ~v1;
+    // Виконуємо побітову операцію заперечення над вектором
+    VectorUShort v3 = ~v1;
 
-  cout << "v3: " << v3 << endl;
+    cout << "v3: " << v3 << endl;
 
-  // Виконуємо операцію унарного мінуса над вектором
-  VectorUShort v4 = -v1;
+    // Виконуємо операцію унарного мінуса над вектором
+    VectorUShort v4 = -v1;
 
-  cout << "v4: " << v4 << endl;
+    cout << "v4: " << v4 << endl;
 
-  // Додаємо вектори
-  VectorUShort v5 = v1 + v2;
+    // Додаємо вектори
+    VectorUShort v5 = v1 + v2;
 
-  cout << "v5: " << v5 << endl;
+    cout << "v5: " << v5 << endl;
 
-  // Віднімаємо вектори
-  VectorUShort v6 = v1 - v2;
+    // Віднімаємо вектори
+    VectorUShort v6 = v1 - v2;
 
-  cout << "v6: " << v6 << endl;
+    cout << "v6: " << v6 << endl;
 
-  // Множимо вектор на число
-  VectorUShort v7 = v1 * 3;
+    // Множимо вектор на число
+    VectorUShort v7 = v1 * 3;
 
-  cout << "v7: " << v7 << endl;
+    cout << "v7: " << v7 << endl;
 
-  // Ділимо вектор на число
-  VectorUShort v8 = v1 / 2;
+    // Ділимо вектор на число
+    VectorUShort v8 = v1 / 2;
 
-  cout << "v8: " << v8 << endl;
+    cout << "v8: " << v8 << endl;
 
-  // Збільшуємо кожен елемент вектора на 1
-  ++v1;
+    // Збільшуємо кожен елемент вектора на 1
+    ++v1;
 
-  // Виводимо вектор
-  cout << "v1: " << v1 << endl;
-    // Зменшуємо кожен елемент вектора на 1
-  --v1;
+    // Виводимо вектор
+    cout << "v1: " << v1 << endl;
+        // Зменшуємо кожен елемент вектора на 1
+    --v1;
 
-  cout << "v1: " << v1 << endl;
+    cout << "v1: " << v1 << endl;
 
-  // Постфіксний інкремент
-  VectorUShort v9 = v1++;
+    // Постфіксний інкремент
+    VectorUShort v9 = v1++;
 
-  // Виводимо вектори
-  cout << "v1: " << v1 << endl;
-  cout << "v9: " << v9 << endl;
+    // Виводимо вектори
+    cout << "v1: " << v1 << endl;
+    cout << "v9: " << v9 << endl;
 
-  // Префіксний декремент
-  VectorUShort v10 = --v1;
+    // Префіксний декремент
+    VectorUShort v10 = --v1;
 
-  cout << "v1: " << v1 << endl;
-  cout << "v10: " << v10 << endl;
+    cout << "v1: " << v1 << endl;
+    cout << "v10: " << v10 << endl;
 
-  cout << "v1[0]: " << v1[0] << endl;
-  cout << "v1[2]: " << v1[2] << endl;
+    cout << "v1[0]: " << v1[0] << endl;
+    cout << "v1[2]: " << v1[2] << endl;
+
+    FlightSchedule schedule;
+    cin >> schedule;
+    cout << schedule;
+
+    int flightNumber;
+    cout << "Enter flight number: ";
+    cin >> flightNumber;
+
+    string departureTime = schedule[flightNumber];
+    if (schedule.getErrorCode() == 0) {
+        cout << "Departure time: " << departureTime << endl;
+    } else {
+        cout << "Flight not found" << endl;
+    }
+
+    return 0;
 
   return 0;
 }
