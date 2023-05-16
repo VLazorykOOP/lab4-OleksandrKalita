@@ -106,6 +106,39 @@ public:
         return *this;
     }
 
+    VectorUShort& operator+=(const VectorUShort& other) {
+        if (num == other.num) {
+            for (int i = 0; i < num; i++) {
+                values[i] += other.values[i];
+            }
+        }
+        return *this;
+    }
+
+    VectorUShort& operator-=(const VectorUShort& other) {
+        if (num == other.num) {
+            for (int i = 0; i < num; i++) {
+                values[i] -= other.values[i];
+            }
+        }
+        return *this;
+    }
+
+    VectorUShort& operator*=(const unsigned short& scalar) {
+        for (int i = 0; i < num; i++) {
+            values[i] *= scalar;
+        }
+        return *this;
+    }
+
+    VectorUShort& operator/=(const unsigned short& scalar) {
+        if (scalar != 0) {
+            for (int i = 0; i < num; i++) {
+                values[i] /= scalar;
+            }
+        }
+        return *this;
+    }
     
 };
 
