@@ -11,17 +11,34 @@ public:
         State = 0;        
     }
     
-    // Конструктор с параметрами
-    VectorUShort(int n, unsigned short val) {
-        data = new unsigned short[n];   
-        num = n;                       
+    VectorUShort(int n) {
+        data = new unsigned short[n];
+        num = 0;         
+        State = 0; 
+        for (int i = 0; i < n; i++) {
+            data[i] = 0; 
+        } 
+    }
+    VectorUShort(int n, int e) {
+        data = new unsigned short[n]; 
+        num = 0;         
         State = 0;            
         for (int i = 0; i < n; i++) {
-            data[i] = val; 
+            data[i] = e; 
         }
     }
     
-    // Деструктор
+     VectorUShort(const VectorUShort& other) {
+        num = other.num;     
+        State = other.State;
+        
+        data = new unsigned short[num];
+        
+        for (int i = 0; i < num; i++) {
+            data[i] = other.data[i];
+        }
+    }
+    
     ~VectorUShort() {
         delete[] data;
     }
@@ -50,6 +67,6 @@ public:
 };
 
 int main() {
-    
+
     return 0;
 }
