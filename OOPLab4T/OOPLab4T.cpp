@@ -70,27 +70,43 @@ public:
         return temp;
     }
 
-    
-    int size() const {
-        return num;
+    bool operator!() const {
+        return (num == 0);
     }
-    
 
-    unsigned short& operator[](int index) {
-        return data[index];
+    VectorUShort operator~() const {
+        VectorUShort result(*this);
+        for (int i = 0; i < num; i++) {
+            result.data[i] = ~data[i];
+        }
+        return result;
     }
+
+    VectorUShort operator-() {
+        VectorUShort result(*this);
+        for (int i = 0; i < num; i++) {
+            result.data[i] = -result.data[i];
+        }
+        return result;
+    }
+
+    VectorUShort& operator=(const VectorUShort& v) {
+        if (this == &v) {
+            return *this;
+        }
+
+        delete[] data;
+        num = v.num;
+        data = new unsigned short[num];
+        for (int i = 0; i < num; i++) {
+            data[i] = v.data[i];
+        }
+        State = v.State;
+
+        return *this;
+    }
+
     
-    const unsigned short& operator[](int index) const {
-        return data[index];
-    }
-    
-    void setState(int s) {
-        State = s;
-    }
-    
-    int getState() const {
-        return State;
-    }
 };
 
 int main() {
